@@ -13,20 +13,6 @@ const app = express();
 app.use(express.json());
 
 routes(app);
-// const livros = [
-//     {id:1, titulo: "Senhor do Anéis"},
-//     {id:2, titulo: "Harry Potter"}
-// ]
-
-app.get('/livros/:id',(req, res) => {
-    let index = buscaLivro(req.params.id);
-    res.json(livros[index]);
-})
-
-// app.post('/livros', (req, res) => {
-//     livros.push(req.body);
-//     res.status(201).send('Livro cadastrado com Sucesso!');
-// })
 
 app.put('/livros/:id',(req, res) => {
     let index = buscaLivro(req.params.id);
