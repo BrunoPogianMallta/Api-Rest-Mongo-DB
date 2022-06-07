@@ -1,6 +1,8 @@
 import express from 'express';
 import db from './config/dbConnect.js';
 import livros from "./models/Livro.js";
+import routes from "./routes/index.js";
+
 
 db.on("error",console.log.bind(console, 'Erro de conexão'))
 db.once("open", () => {
@@ -10,30 +12,21 @@ const app = express();
 
 app.use(express.json());
 
+routes(app);
 // const livros = [
 //     {id:1, titulo: "Senhor do Anéis"},
 //     {id:2, titulo: "Harry Potter"}
 // ]
-
-app.get('/', (req, res) => {
-    res.status(200).send('rota Padrão');
-})
-
-app.get('/livros',(req, res) => {
-    livros.find((err, livros) => {
-        res.status(200).json(livros)
-    }) 
-})
 
 app.get('/livros/:id',(req, res) => {
     let index = buscaLivro(req.params.id);
     res.json(livros[index]);
 })
 
-app.post('/livros', (req, res) => {
-    livros.push(req.body);
-    res.status(201).send('Livro cadastrado com Sucesso!');
-})
+// app.post('/livros', (req, res) => {
+//     livros.push(req.body);
+//     res.status(201).send('Livro cadastrado com Sucesso!');
+// })
 
 app.put('/livros/:id',(req, res) => {
     let index = buscaLivro(req.params.id);
